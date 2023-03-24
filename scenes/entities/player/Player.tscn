@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://x7jgw08j0an7"]
+
+[ext_resource type="Script" path="res://scenes/entities/player/Player.gd" id="1_bvkld"]
+[ext_resource type="Texture2D" uid="uid://di57kw8amdfvc" path="res://icon.svg" id="2_3ygal"]
+[ext_resource type="Script" path="res://scenes/entities/player/STATES.gd" id="3_87rwc"]
+[ext_resource type="PackedScene" uid="uid://rahvx1fnjiwx" path="res://scenes/entities/player/JUMP.tscn" id="3_ulsqu"]
+[ext_resource type="PackedScene" uid="uid://cbsq1sykdcc6e" path="res://scenes/entities/player/IDLE.tscn" id="4_hms1o"]
+[ext_resource type="PackedScene" uid="uid://cd71drssnvm1d" path="res://scenes/entities/player/MOVE.tscn" id="5_d55dw"]
+[ext_resource type="PackedScene" uid="uid://bu78omcona2ro" path="res://scenes/entities/player/FALL.tscn" id="6_e0e8q"]
+[ext_resource type="PackedScene" uid="uid://7cr0qguiyqho" path="res://scenes/entities/player/DASH.tscn" id="8_hxopg"]
+[ext_resource type="PackedScene" uid="uid://bft3fqsdmjm80" path="res://scenes/entities/player/SLIDE.tscn" id="9_pal3t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1r3j7"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_bvkld")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_3ygal")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1r3j7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="STATES" type="Node" parent="."]
+script = ExtResource("3_87rwc")
+
+[node name="JUMP" parent="STATES" instance=ExtResource("3_ulsqu")]
+
+[node name="IDLE" parent="STATES" instance=ExtResource("4_hms1o")]
+
+[node name="MOVE" parent="STATES" instance=ExtResource("5_d55dw")]
+
+[node name="FALL" parent="STATES" instance=ExtResource("6_e0e8q")]
+
+[node name="DASH" parent="STATES" instance=ExtResource("8_hxopg")]
+
+[node name="SLIDE" parent="STATES" instance=ExtResource("9_pal3t")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -18.0
+offset_top = -34.0
+offset_right = 22.0
+offset_bottom = -11.0
+text = "STATE"
+
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="TopRight" type="RayCast2D" parent="Raycasts"]
+position = Vector2(0, -10)
+target_position = Vector2(13, 0)
+collision_mask = 2
+
+[node name="ButtomRight" type="RayCast2D" parent="Raycasts"]
+position = Vector2(0, 10)
+target_position = Vector2(13, 0)
+collision_mask = 2
+
+[node name="TopLeft" type="RayCast2D" parent="Raycasts"]
+position = Vector2(0, -10)
+target_position = Vector2(-13, 0)
+collision_mask = 2
+
+[node name="ButtomLeft" type="RayCast2D" parent="Raycasts"]
+position = Vector2(0, 10)
+target_position = Vector2(-13, 0)
+collision_mask = 2
